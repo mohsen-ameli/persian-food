@@ -5,35 +5,32 @@ import { AnimatePresence, motion } from "framer-motion"
 import food1 from "../assets/food1.jpg"
 import food2 from "../assets/food2.jpg"
 import food3 from "../assets/food3.jpg"
-import food4 from "../assets/food4.jpg"
+import food4 from "../assets/food4.5.jpg"
 import food5 from "../assets/food5.jpg"
 
 const Slider = () => {
-  const images = [
-    food1, food2, food3, food4, food5
-  ]
+  const images = [food1, food2, food3, food4, food5]
   const [track, setTrack] = useState(0)
 
-  const next = () => track < 4  ? setTrack(track + 1) : setTrack(0)
-  const prev = () => track > 0 ? setTrack(track - 1) : setTrack(4)
+  const next = () => track < images.length - 1  ? setTrack(track + 1) : setTrack(0)
+  const prev = () => track > 0 ? setTrack(track - 1) : setTrack(images.length - 1)
 
   useEffect(() => {
-    setTimeout(() => {
-      next()
-    }, 3000)
-    clearTimeout()
+    const interval = setInterval(() => next(), 3500)
+
+    return () => clearInterval(interval)
   })
 
   return (
-    <div className="w-full h-full">
-      <div onClick={() => prev()} className="absolute top-[60%] left-10 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
+    <div className="w-full h-full max-w-[1240px] mx-auto relative">
+      <div onClick={() => prev()} className="absolute top-1/2 left-10 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
         <BsArrowLeft className="text-white" size={50} />
       </div>
-      <div onClick={() => next()} className="absolute top-[60%] right-10 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
+      <div onClick={() => next()} className="absolute top-1/2 right-10 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
         <BsArrowRight className="text-white" size={50} />
       </div>
       
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         <motion.img
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -42,7 +39,7 @@ const Slider = () => {
           key={track}
           src={images[track]}
           alt="food"
-          className="absolute w-full max-h-[35rem] object-cover select-none"
+          className="w-full max-h-[30rem] object-cover select-none"
         />
       </AnimatePresence>
     </div>

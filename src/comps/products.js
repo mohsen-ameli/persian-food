@@ -1,9 +1,9 @@
 import { db } from "../firebase"
-import { arrayUnion, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
+import { arrayUnion, doc, setDoc } from 'firebase/firestore'
+import { AnimatePresence, motion } from "framer-motion"
+import { BsCartPlusFill } from "react-icons/bs"
 
-import koobideh from "../assets/koobideh.jpg"
-import { useEffect } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Products = () => {
   const [products, setProducts] = useState([])
@@ -31,18 +31,18 @@ const Products = () => {
     }
   }, [])
 
-  const addToCart = async () => {
+  const addToCart = async (product, index) => {
     await setDoc(doc(db, "cart", "mohsen"), {
       cart: arrayUnion({
-        name: "hello",
-        img: "https://google.com/",
-        price: 15123
+        name: product.split("images/")[1].split("/")[0],
+        img: product,
+        price: discount[index]
       })
     }, { merge: true })
   }
 
   return (
-    <div className="w-full h-full py-40">
+    <div className="w-full h-full py-40 px-8 max-w-[1240px] mx-auto">
       {/* Title */}
       <div className="px-8">
         <h1 className="font-semibold text-6xl">Our Products</h1>
@@ -51,17 +51,17 @@ const Products = () => {
 
       {/* Products */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-8 m-4 mt-12">
-        {products && products.map((product, i) => (
-          <div className="flex flex-col items-center" onClick={addToCart}>
-            <img className="w-64 h-64 object-cover rounded-md shadow-xl" src={product} alt="" />
+        {products && products.map((product, index) => (
+          <div className="flex flex-col items-center" key={index}>
+            <Product pic={product} onClick={() => addToCart(product, index)} />
             {
             <div className="flex items-center mt-4">
-              <h1 className="text-3xl font-semibold text-green-600">${ discount[i] }</h1>
-              <h1 className="text-lg font-semibold ml-2 text-gray-600 line-through">${ price[i] }</h1>
+              <h1 className="text-3xl font-semibold text-green-600">${ discount[index] }</h1>
+              <h1 className="text-lg font-semibold ml-2 text-gray-600 line-through">${ price[index] }</h1>
             </div>
             }
-            { Math.round((100 - discount[i] / price[i] * 100) / 5) * 5 > 0 &&
-              <h1 className="text-md text-red-600">{ Math.round((100 - discount[i] / price[i] * 100) / 5) * 5  }% OFF</h1>
+            { Math.round((100 - discount[index] / price[index] * 100) / 5) * 5 > 0 &&
+              <h1 className="text-md text-red-600">{ Math.round((100 - discount[index] / price[index] * 100) / 5) * 5  }% OFF</h1>
             }
             <h1 className="text-2xl mt-1 capitalize">{ product.split("images/")[1].split("/")[0] }</h1>
           </div>
@@ -69,6 +69,45 @@ const Products = () => {
         }
       </div>
     </div>
+  )
+}
+
+const proVarient = {
+  hidden: {
+    opacity: 0, scaleY: 0, scaleX: 0, rotate: 0
+  },
+  visible: {
+    opacity: 1, scaleY: 1, scaleX: 1, rotate: 90
+  },
+  transition: { duration: .5, type: "spring" }
+}
+
+const Product = ({ pic, ...rest }) => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <motion.div
+      onHoverStart={() => setOpen(true)}
+      onHoverEnd={() => setOpen(false)}
+      className="group relative mx-auto cursor-pointer"
+      {...rest}
+    >
+      <img className="w-32 h-32 md:w-64 md:h-64 object-cover rounded-md shadow-xl" src={pic} alt="" />
+      <AnimatePresence mode="wait">
+        {open &&
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition="transition"
+            variants={proVarient}
+            className="absolute flex items-center justify-center origin-center w-full h-full top-0 z-10 rounded-md bg-[#900e0e71]">
+            
+            <BsCartPlusFill className="-rotate-90" color="white" size={50} />
+          </motion.div>
+        }
+      </AnimatePresence>
+    </motion.div>
   )
 }
 

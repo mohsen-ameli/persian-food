@@ -1,20 +1,33 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { db } from "../firebase"
+import { arrayUnion, doc, setDoc, onSnapshot } from 'firebase/firestore'
+
 import logo from "../assets/logo.jpg"
+import iran from "../assets/iran.svg"
+import canada from "../assets/canada.svg"
 import DropDown from "./menu";
 import { FiLogIn, FiUserPlus, FiShoppingCart } from "react-icons/fi"
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const Navbar = () => {
-  const [lang, setLang] = useState(() => localStorage.getItem("lang") ? localStorage.getItem("lang") : "En")
+  const [lang, setLang] = useState(() => localStorage.getItem("lang") ? localStorage.getItem("lang") : "English")
+  const [numItems, setNumItems] = useState(0)
+
+  useEffect(() => {
+    onSnapshot(doc(db, "cart", "mohsen"), (doc) => {
+      setNumItems(doc.data().cart.length)
+    })
+  }, [])
 
   const changeLang = () => {
-    if (lang === "En") {
-      setLang("Fa")
-      localStorage.setItem("lang", "Fa")
+    if (lang === "English") {
+      setLang("Farsi")
+      localStorage.setItem("lang", "Farsi")
     } else {
-      setLang("En")
-      localStorage.setItem("lang", "En")
+      setLang("English")
+      localStorage.setItem("lang", "English")
     }
   }
 
@@ -46,7 +59,7 @@ const Navbar = () => {
         
         {/* Three buttons */}
         <ul className="flex items-center">
-          <motion.li className="mx-8 cursor-pointer flex flex-col items-center" whileHover={{
+          <motion.li className="relative mx-8 cursor-pointer flex flex-col items-center" whileHover={{
               scale: 1.05,
               transition: {
                 ease: "easeInOut",
@@ -54,7 +67,10 @@ const Navbar = () => {
                 repeatType: 'reverse'
               }
             }}>
-            <FiShoppingCart className="text-red-400" size={35} />
+              <FiShoppingCart className="text-red-400" size={35} />
+              <div className={numItems > 0 ? "w-6 h-5 absolute -top-3 -right-3" : "hidden"}>
+                <h1 className="m-auto bg-red-500 rounded-full text-white text-center">{ numItems }</h1>
+              </div>
             <span>Cart</span>
           </motion.li>
           <motion.li className="cursor-pointer flex flex-col items-center" whileHover={{
@@ -79,6 +95,9 @@ const Navbar = () => {
             <FiUserPlus className="text-red-400" size={35} />
             <span>Sign Up</span>
           </motion.li>
+          <li className="mx-3 flex items-center cursor-pointer" onClick={() => changeLang()}>
+            <img className="w-14 h-8 object-cover mr-2" src={lang === "Farsi" ? iran : canada} alt="" /> {lang}
+          </li>
         </ul>
       </nav>
 
@@ -87,31 +106,28 @@ const Navbar = () => {
           <DropDown />
           <li className="mx-6 hover:text-gray-300">
             <Link to="">
+              Home
+            </Link>
+          </li>
+          <li className="mx-6 hover:text-gray-300">
+            <Link to="">
               About
             </Link>
           </li>
           <li className="mx-6 hover:text-gray-300">
             <Link to="">
-              Food
+              Categories
             </Link>
           </li>
           <li className="mx-6 hover:text-gray-300">
             <Link to="">
-              Grocieries
-            </Link>
-          </li>
-          <li className="mx-6 hover:text-gray-300">
-            <Link to="">
-              Book a seat
+              Products
             </Link>
           </li>
           <li className="mx-6 hover:text-gray-300">
             <Link to="">
               Contact
             </Link>
-          </li>
-          <li className="mx-6 hover:text-gray-300 cursor-pointer" onClick={() => changeLang()}>
-            {lang}
           </li>
         </ul>
       </nav>

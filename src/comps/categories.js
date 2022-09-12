@@ -11,7 +11,7 @@ import { useState } from "react"
 
 const Categories = () => {
   return (
-    <div className="w-full h-screen px-4">
+    <div className="w-full h-screen max-w-[1240px] mx-auto px-8">
       {/* Title */}
       <div className="px-8">
         <h1 className="font-semibold text-6xl">Our Categories</h1>
@@ -19,7 +19,7 @@ const Categories = () => {
       </div>
 
       {/* Pics */}
-      <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-12 my-12">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12 my-12">
         <Category pic={dairy} text="Dairy" />
         <Category pic={barbari} text="Bakery" />
         <Category pic={deli} text="Deli" />
@@ -33,6 +33,15 @@ const Categories = () => {
   );
 }
 
+const catVarient = {
+  hidden: {
+    opacity: 0, scaleY: 0, scaleX: 0
+  },
+  visible: {
+    opacity: 1, scaleY: 1, scaleX: 1, transition: { duration: .25, type: "tween" }
+  }
+}
+
 const Category = ({ pic, text }) => {
   const [open, setOpen] = useState(false)
 
@@ -42,14 +51,14 @@ const Category = ({ pic, text }) => {
       onHoverEnd={() => setOpen(false)}
       className="group relative mx-auto"
     >
-      <img className="w-32 h-32 md:w-64 md:h-64 object-cover rounded-xl" src={pic} alt="" />
+      <img className="w-64 h-64 object-cover rounded-xl" src={pic} alt="" />
       <AnimatePresence mode="wait">
         {open &&
           <motion.div
-            initial={{ opacity: 0, scaleY: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleY: 1, scaleX: 1 }}
-            exit={{ opacity: 0, scaleY: 0, scaleX: 0 }}
-            transition={{ duration: .25, type: "tween" }}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={catVarient}
             className="absolute flex items-center justify-center origin-bottom-right w-full h-full top-0 z-10 rounded-xl bg-[#900e0e71]">
             
             <h1 className="text-white text-2xl font-semibold">
