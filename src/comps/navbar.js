@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase"
-import { arrayUnion, doc, setDoc, onSnapshot } from 'firebase/firestore'
+import { doc, onSnapshot } from 'firebase/firestore'
 
 import logo from "../assets/logo.jpg"
 import iran from "../assets/iran.svg"
