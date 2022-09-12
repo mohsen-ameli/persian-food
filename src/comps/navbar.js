@@ -23,8 +23,8 @@ const Navbar = () => {
 
   const changeLang = () => {
     if (lang === "English") {
-      setLang("Farsi")
-      localStorage.setItem("lang", "Farsi")
+      setLang("فارسی")
+      localStorage.setItem("lang", "فارسی")
     } else {
       setLang("English")
       localStorage.setItem("lang", "English")
@@ -33,11 +33,11 @@ const Navbar = () => {
 
   return (
     <div className="w-full flex flex-col">
-      <nav className="w-full fixed top-0 z-30 bg-red-50 flex items-center justify-center h-[120px] px-4">
+      <nav className="w-full fixed top-0 z-30 bg-red-50 flex items-center justify-center h-[127px] shadow-xl select-none">
         {/* Logo */}
-        <div className="p-6">
+        <Link to="" className="px-6 pt-3 h-full">
           <img className="w-24 h-24 rounded-full" src={logo} alt="" />
-        </div>
+        </Link>
 
         {/* Search bar */}
         <div className="flex items-center mx-4">
@@ -59,49 +59,28 @@ const Navbar = () => {
         
         {/* Three buttons */}
         <ul className="flex items-center">
-          <motion.li className="relative mx-8 cursor-pointer flex flex-col items-center" whileHover={{
-              scale: 1.05,
-              transition: {
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatType: 'reverse'
-              }
-            }}>
-              <FiShoppingCart className="text-red-400" size={35} />
-              <div className={numItems > 0 ? "w-6 h-5 absolute -top-3 -right-3" : "hidden"}>
-                <h1 className="m-auto bg-red-500 rounded-full text-white text-center">{ numItems }</h1>
-              </div>
+          <TopNavItem>
+            <FiShoppingCart className="text-red-400" size={35} />
+            <div className={numItems > 0 ? "w-6 h-5 absolute -top-3 -right-3" : "hidden"}>
+              <h1 className="m-auto bg-red-500 rounded-full text-white text-center">{ numItems }</h1>
+            </div>
             <span>Cart</span>
-          </motion.li>
-          <motion.li className="cursor-pointer flex flex-col items-center" whileHover={{
-              scale: 1.05,
-              transition: {
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatType: 'reverse'
-              }
-            }}>
+          </TopNavItem>
+          <TopNavItem>
             <FiLogIn className="text-red-400" size={35} />
             <span>Login</span>
-          </motion.li>
-          <motion.li className="mx-8 cursor-pointer flex flex-col items-center" whileHover={{
-              scale: 1.05,
-              transition: {
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatType: 'reverse'
-              }
-            }}>
+          </TopNavItem>
+          <TopNavItem>
             <FiUserPlus className="text-red-400" size={35} />
             <span>Sign Up</span>
-          </motion.li>
+          </TopNavItem>
           <li className="mx-3 flex items-center cursor-pointer" onClick={() => changeLang()}>
-            <img className="w-14 h-8 object-cover mr-2" src={lang === "Farsi" ? iran : canada} alt="" /> {lang}
+            <img className="w-14 h-8 object-cover mr-2" src={lang === "فارسی" ? iran : canada} alt="" /> {lang}
           </li>
         </ul>
       </nav>
 
-      <nav className="mt-32 h-[50px] text-white flex items-center justify-center bg-red-800">
+      <nav className="mt-32 h-[50px] text-white flex items-center justify-center bg-red-800 shadow-2xl">
         <ul className="flex select-none">
           <DropDown />
           <li className="mx-6 hover:text-gray-300">
@@ -133,6 +112,29 @@ const Navbar = () => {
       </nav>
     </div>
   );
+}
+
+const TopNavItem = ({ children }) => {
+  const navVarient = {
+    hover: {
+      scale: 1.05,
+      transition: {
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: 'reverse'
+      }
+    }
+  }
+  
+  return (
+    <motion.li
+      className="relative mx-6 cursor-pointer flex flex-col items-center"
+      whileHover="hover"
+      variants={navVarient}
+    >
+      {children}
+    </motion.li>
+  )
 }
  
 export default Navbar;

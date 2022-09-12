@@ -2,8 +2,9 @@ import { db } from "../firebase"
 import { arrayUnion, doc, setDoc } from 'firebase/firestore'
 import { AnimatePresence, motion } from "framer-motion"
 import { BsCartPlusFill } from "react-icons/bs"
-
 import { useEffect, useState } from "react"
+
+import Title from "./title"
 
 const Products = () => {
   const [products, setProducts] = useState([])
@@ -25,9 +26,9 @@ const Products = () => {
       setPrice(old => [...old, price_])
       setDiscount(old => [...old, discount_])
     }
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       setPrices()
-      fetchStuff()
+      // fetchStuff()
     }
   }, [])
 
@@ -42,15 +43,12 @@ const Products = () => {
   }
 
   return (
-    <div className="w-full h-full py-40 px-8 max-w-[1240px] mx-auto">
+    <div className="w-full h-full my-32 px-8 max-w-[1240px] mx-auto">
       {/* Title */}
-      <div className="px-8">
-        <h1 className="font-semibold text-6xl">Our Products</h1>
-        <div className="mt-4 border-b-4 border-red-200 w-full"></div>
-      </div>
+      <Title text="Our Products" />
 
       {/* Products */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-8 m-4 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 m-4">
         {products && products.map((product, index) => (
           <div className="flex flex-col items-center" key={index}>
             <Product pic={product} onClick={() => addToCart(product, index)} />
@@ -72,17 +70,17 @@ const Products = () => {
   )
 }
 
-const proVarient = {
-  hidden: {
-    opacity: 0, scaleY: 0, scaleX: 0, rotate: 0
-  },
-  visible: {
-    opacity: 1, scaleY: 1, scaleX: 1, rotate: 90
-  },
-  transition: { duration: .5, type: "spring" }
-}
-
 const Product = ({ pic, ...rest }) => {
+  const proVarient = {
+    hidden: {
+      opacity: 0, scaleY: 0, scaleX: 0, rotate: 0
+    },
+    visible: {
+      opacity: 1, scaleY: 1, scaleX: 1, rotate: 90
+    },
+    transition: { duration: .5, type: "spring" }
+  }
+  
   const [open, setOpen] = useState(false)
 
   return (

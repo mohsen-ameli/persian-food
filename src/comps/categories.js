@@ -9,17 +9,16 @@ import drinks from "../assets/drinks.jpg"
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 
+import Title from "./title"
+
 const Categories = () => {
   return (
-    <div className="w-full h-screen max-w-[1240px] mx-auto px-8">
+    <div className="w-full h-screen max-w-[1240px] mx-auto px-8 my-32">
       {/* Title */}
-      <div className="px-8">
-        <h1 className="font-semibold text-6xl">Our Categories</h1>
-        <div className="mt-4 border-b-4 border-red-200 w-full"></div>
-      </div>
+      <Title text="Our Categories" />
 
       {/* Pics */}
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12 my-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12">
         <Category pic={dairy} text="Dairy" />
         <Category pic={barbari} text="Bakery" />
         <Category pic={deli} text="Deli" />
@@ -33,16 +32,16 @@ const Categories = () => {
   );
 }
 
-const catVarient = {
-  hidden: {
-    opacity: 0, scaleY: 0, scaleX: 0
-  },
-  visible: {
-    opacity: 1, scaleY: 1, scaleX: 1, transition: { duration: .25, type: "tween" }
-  }
-}
-
 const Category = ({ pic, text }) => {
+  const catVarient = {
+    hidden: {
+      opacity: 0, scaleY: 0, scaleX: 0
+    },
+    visible: {
+      opacity: 1, scaleY: 1, scaleX: 1, transition: { duration: .25, type: "tween" }
+    }
+  }
+
   const [open, setOpen] = useState(false)
 
   return (
@@ -51,7 +50,7 @@ const Category = ({ pic, text }) => {
       onHoverEnd={() => setOpen(false)}
       className="group relative mx-auto"
     >
-      <img className="w-64 h-64 object-cover rounded-xl" src={pic} alt="" />
+      <img className="w-64 h-64 object-cover rounded-xl shadow-xl" src={pic} alt="" />
       <AnimatePresence mode="wait">
         {open &&
           <motion.div

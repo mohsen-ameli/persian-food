@@ -1,16 +1,15 @@
 import { BsArrowDown } from "react-icons/bs"
 import { Disclosure } from '@headlessui/react'
-import { useState } from "react";
+import { useState } from "react"
+
+import Title from "./title"
 
 const About = () => {
   return (
     <div className="w-full h-full my-32 max-w-[1240px] mx-auto px-8">
       {/* Title */}
-      <div className="pb-12">
-        <h1 className="font-semibold text-6xl">About Us</h1>
-        <div className="mt-4 border-b-4 border-red-200 w-full"></div>
-      </div>
-
+      <Title text="About Us" />
+      
       <div className="mx-auto w-full max-w-4xl p-6 rounded-2xl bg-red-200">
         <MyDisclosure
           title="Want the most delicious food in the world?"

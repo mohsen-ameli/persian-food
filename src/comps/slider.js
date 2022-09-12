@@ -9,6 +9,7 @@ import food4 from "../assets/food4.5.jpg"
 import food5 from "../assets/food5.jpg"
 
 const Slider = () => {
+  const INTERVAL_TIME = 5000
   const images = [food1, food2, food3, food4, food5]
   const [track, setTrack] = useState(0)
 
@@ -16,7 +17,7 @@ const Slider = () => {
   const prev = () => track > 0 ? setTrack(track - 1) : setTrack(images.length - 1)
 
   useEffect(() => {
-    const interval = setInterval(() => next(), 3500)
+    const interval = setInterval(() => next(), INTERVAL_TIME)
 
     return () => clearInterval(interval)
   })
@@ -39,7 +40,7 @@ const Slider = () => {
           key={track}
           src={images[track]}
           alt="food"
-          className="w-full max-h-[30rem] object-cover select-none"
+          className="w-full max-h-[30rem] object-cover select-none rounded-b-xl"
         />
       </AnimatePresence>
     </div>
