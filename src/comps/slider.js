@@ -23,12 +23,12 @@ const Slider = () => {
   })
 
   return (
-    <div className="w-full h-full max-w-[1240px] mx-auto relative">
-      <div onClick={() => prev()} className="absolute top-1/2 left-10 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
-        <BsArrowLeft className="text-white" size={50} />
+    <div className="w-full h-full max-w-[1240px] m-auto mt-16 px-8 relative">
+      <div onClick={() => prev()} className="absolute text-2xl md:text-5xl top-1/2 left-16 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
+        <BsArrowLeft className="text-white" />
       </div>
-      <div onClick={() => next()} className="absolute top-1/2 right-10 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
-        <BsArrowRight className="text-white" size={50} />
+      <div onClick={() => next()} className="absolute text-2xl md:text-5xl top-1/2 right-16 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
+        <BsArrowRight className="text-white" />
       </div>
       
       <AnimatePresence mode="wait">

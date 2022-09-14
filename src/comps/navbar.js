@@ -60,11 +60,13 @@ const Navbar = () => {
         {/* Three buttons */}
         <ul className="flex items-center">
           <TopNavItem>
-            <FiShoppingCart className="text-red-400" size={35} />
-            <div className={numItems > 0 ? "w-6 h-5 absolute -top-3 -right-3" : "hidden"}>
-              <h1 className="m-auto bg-red-500 rounded-full text-white text-center">{ numItems }</h1>
-            </div>
-            <span>Cart</span>
+            <Link to="/cart">
+              <FiShoppingCart className="text-red-400" size={35} />
+              <div className={numItems > 0 ? "w-6 h-5 absolute -top-3 -right-3" : "hidden"}>
+                <h1 className="m-auto bg-red-500 rounded-full text-white text-center">{ numItems }</h1>
+              </div>
+              <span>Cart</span>
+            </Link>
           </TopNavItem>
           <TopNavItem>
             <FiLogIn className="text-red-400" size={35} />
