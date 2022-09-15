@@ -26,7 +26,7 @@ const Products = () => {
       setPrice(old => [...old, price_])
       setDiscount(old => [...old, discount_])
     }
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
       setPrices()
       fetchStuff()
     }

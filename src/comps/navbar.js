@@ -72,7 +72,7 @@ const Navbar = () => {
         <ul className="flex items-center ml-4 text-center">
           {/* Cart */}
           <TopNavItem>
-            <Link to="/cart">
+            <Link to="/cart" className="relative">
               <FiShoppingCart className="text-red-400" size={35} />
               <div className={numItems > 0 ? "w-6 h-5 absolute -top-3 -right-3" : "hidden"}>
                 <h1 className="bg-red-500 rounded-full text-white text-center">{ numItems }</h1>
