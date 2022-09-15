@@ -13,7 +13,7 @@ import Title from "./title"
 
 const Categories = () => {
   return (
-    <div name="categories" className="w-full h-full max-w-[1240px] mx-auto px-8 my-32">
+    <div name="categories" className="w-full h-full max-w-[1240px] mx-auto px-8 mt-12 mb-16">
       {/* Title */}
       <Title text="Our Categories" />
 

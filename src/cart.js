@@ -81,7 +81,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="w-full h-full my-16 px-8 max-w-[1240px] mx-auto select-none">
+    <div className="w-full h-full px-8 md:p-8 max-w-[1240px] mx-auto select-none">
       <Title text="Shopping Cart" />
 
       {items.length === 0 && <h1 className="text-2xl">Your cart is currently empty. Please add some products</h1>}
