@@ -23,7 +23,7 @@ const Slider = () => {
   })
 
   return (
-    <div name="home" className="w-full max-h-[35rem] max-w-[1240px] m-auto mt-16 px-8 relative">
+    <div name="home" className="w-full max-h-[35rem] max-w-[1240px] m-auto pt-8 px-8 relative">
       <div onClick={() => prev()} className="absolute text-2xl md:text-5xl top-1/2 left-16 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
         <BsArrowLeft className="text-white" />
       </div>

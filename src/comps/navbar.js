@@ -9,12 +9,15 @@ import iran from "../assets/iran.svg"
 import canada from "../assets/canada.svg"
 import DropDown from "./menu";
 import { FiLogIn, FiUserPlus, FiShoppingCart } from "react-icons/fi"
+import { BsList } from "react-icons/bs"
+import { GrClose } from "react-icons/gr"
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
 const Navbar = () => {
   const [lang, setLang] = useState(() => localStorage.getItem("lang") ? localStorage.getItem("lang") : "English")
   const [numItems, setNumItems] = useState(0)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     onSnapshot(doc(db, "cart", "mohsen"), (doc) => {
@@ -33,16 +36,20 @@ const Navbar = () => {
   }
 
   return (
-    <div className="w-full flex flex-col mb-[250px]">
-      <nav className="w-full fixed top-0 z-30 bg-red-50 flex items-center justify-center h-[130px] select-none">
+    <div className="w-full flex flex-col mb-[180px]">
+      <nav className="w-full fixed top-0 z-20 px-2 md:px-8 bg-red-50 flex items-center justify-center h-[130px] select-none">
+        <div className="mr-4 p-4 cursor-pointer border rounded-2xl" onClick={() => setOpen(!open)}>
+          <BsList className="" size={40} />
+        </div>
+        
         {/* Logo */}
-        <Link to="" className="px-6 pt-3">
-          <img className="w-24 h-24 rounded-full" src={logo} alt="" />
+        <Link to="" className="">
+          <img className="w-24 h-auto rounded-full" src={logo} alt="" />
         </Link>
 
         {/* Search bar */}
-        <div className="flex items-center mx-4">
-          <input className="border border-gray-400 rounded-md mr-2 px-32 py-2 pl-2" type="text" placeholder="Search For Food" />
+        <div className="hidden md:flex items-center mx-4">
+          <input className="border border-gray-400 rounded-md mr-2 pr-8 lg:pr-32 py-2 pl-2" type="text" placeholder="Search For Food" />
           <motion.button 
             className="px-8 py-2 bg-red-400 rounded-md"
             whileHover={{
@@ -83,7 +90,39 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      <nav className="mt-32 w-full h-[50px] fixed top-0 z-30 text-white flex items-center justify-center bg-red-800 shadow-2xl">
+      {open && 
+        <nav className="w-full h-screen z-30 bg-gray-400 fixed top-0 left-0">
+          <div className="w-fit my-8 mx-10 p-4 cursor-pointer border rounded-2xl" onClick={() => setOpen(!open)}>
+            <GrClose className="" size={40} />
+          </div>
+
+          <ul className="flex flex-col select-none">
+            {/* <DropDown /> */}
+            <li className="px-6 py-8 text-4xl text-center font-semibold cursor-pointer">
+              <Scroll to="home" smooth={true} offset={-300} onClick={() => setOpen(!open)}>
+                Home
+              </Scroll>
+            </li>
+            <li className="px-6 py-8 text-4xl text-center font-semibold cursor-pointer">
+              <Scroll to="about" smooth={true} offset={-190} onClick={() => setOpen(!open)}>
+                About
+              </Scroll>
+            </li>
+            <li className="px-6 py-8 text-4xl text-center font-semibold cursor-pointer">
+              <Scroll to="categories" smooth={true} offset={-190} onClick={() => setOpen(!open)}>
+                Categories
+              </Scroll>
+            </li>
+            <li className="px-6 py-8 text-4xl text-center font-semibold cursor-pointer">
+              <Scroll to="products" smooth={true} offset={-190} onClick={() => setOpen(!open)}>
+                Products
+              </Scroll>
+            </li>
+          </ul>          
+        </nav>
+      }
+
+      <nav className="hidden mt-32 w-full h-[50px] fixed top-0 z-30 text-white md:flex items-center justify-center bg-red-800 shadow-2xl">
         <ul className="flex select-none">
           <DropDown />
           <li className="mx-6 hover:text-gray-300 cursor-pointer">
