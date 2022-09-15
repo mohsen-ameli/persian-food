@@ -44,7 +44,7 @@ const Products = () => {
   }
 
   return (
-    <div className="w-full h-full px-8 max-w-[1240px] mx-auto">
+    <div name="products" className="w-full h-full px-8 max-w-[1240px] mx-auto">
       {/* Title */}
       <Title text="Our Products" />
 
@@ -91,7 +91,7 @@ const Product = ({ pic, ...rest }) => {
       className="group relative mx-auto cursor-pointer"
       {...rest}
     >
-      <img className="w-32 h-32 md:w-64 md:h-64 object-cover rounded-md shadow-xl" src={pic} alt="" />
+      <img className="w-64 h-64 object-cover rounded-md shadow-xl" src={pic} alt="" />
       <AnimatePresence mode="wait">
         {open &&
           <motion.div

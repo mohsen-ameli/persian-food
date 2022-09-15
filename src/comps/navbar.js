@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link as Scroll } from "react-scroll";
 import { Link } from "react-router-dom";
 import { db } from "../firebase"
 import { doc, onSnapshot } from 'firebase/firestore'
@@ -32,10 +33,10 @@ const Navbar = () => {
   }
 
   return (
-    <div className="w-full flex flex-col">
-      <nav className="w-full fixed top-0 z-30 bg-red-50 flex items-center justify-center h-[127px] shadow-xl select-none">
+    <div className="w-full flex flex-col mb-[250px]">
+      <nav className="w-full fixed top-0 z-30 bg-red-50 flex items-center justify-center h-[130px] select-none">
         {/* Logo */}
-        <Link to="" className="px-6 pt-3 h-full">
+        <Link to="" className="px-6 pt-3">
           <img className="w-24 h-24 rounded-full" src={logo} alt="" />
         </Link>
 
@@ -82,34 +83,34 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      <nav className="mt-32 h-[50px] text-white flex items-center justify-center bg-red-800 shadow-2xl">
+      <nav className="mt-32 w-full h-[50px] fixed top-0 z-30 text-white flex items-center justify-center bg-red-800 shadow-2xl">
         <ul className="flex select-none">
           <DropDown />
-          <li className="mx-6 hover:text-gray-300">
-            <Link to="">
+          <li className="mx-6 hover:text-gray-300 cursor-pointer">
+            <Scroll to="home" smooth={true} offset={-300}>
               Home
-            </Link>
+            </Scroll>
           </li>
-          <li className="mx-6 hover:text-gray-300">
-            <Link to="">
+          <li className="mx-6 hover:text-gray-300 cursor-pointer">
+            <Scroll to="about" smooth={true} offset={-190}>
               About
-            </Link>
+            </Scroll>
           </li>
-          <li className="mx-6 hover:text-gray-300">
-            <Link to="">
+          <li className="mx-6 hover:text-gray-300 cursor-pointer">
+            <Scroll to="categories" smooth={true} offset={-190}>
               Categories
-            </Link>
+            </Scroll>
           </li>
-          <li className="mx-6 hover:text-gray-300">
-            <Link to="">
+          <li className="mx-6 hover:text-gray-300 cursor-pointer">
+            <Scroll to="products" smooth={true} offset={-190}>
               Products
-            </Link>
+            </Scroll>
           </li>
-          <li className="mx-6 hover:text-gray-300">
-            <Link to="">
+          {/* <li className="mx-6 hover:text-gray-300 cursor-pointer">
+            <Scroll to="">
               Contact
-            </Link>
-          </li>
+            </Scroll>
+          </li> */}
         </ul>
       </nav>
     </div>

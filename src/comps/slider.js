@@ -23,7 +23,7 @@ const Slider = () => {
   })
 
   return (
-    <div className="w-full h-full max-w-[1240px] m-auto mt-16 px-8 relative">
+    <div name="home" className="w-full max-h-[35rem] max-w-[1240px] m-auto mt-16 px-8 relative">
       <div onClick={() => prev()} className="absolute text-2xl md:text-5xl top-1/2 left-16 p-4 z-10 bg-[#dc272747] hover:bg-gradient-to-r from-rose-400 to-red-500 hover:scale-105 hover:ease-out duration-100 rounded-full cursor-pointer">
         <BsArrowLeft className="text-white" />
       </div>
@@ -36,11 +36,11 @@ const Slider = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: .6 }}
+          transition={{ duration: 1 }}
           key={track}
           src={images[track]}
           alt="food"
-          className="w-full max-h-[30rem] object-cover select-none rounded-b-xl"
+          className="w-full h-[20rem] md:h-[30rem] max-h-[30rem] object-cover select-none rounded-xl"
         />
       </AnimatePresence>
     </div>

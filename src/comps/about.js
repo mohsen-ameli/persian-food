@@ -6,7 +6,7 @@ import Title from "./title"
 
 const About = () => {
   return (
-    <div className="w-full h-full my-32 max-w-[1240px] mx-auto px-8">
+    <div name="about" className="w-full h-full my-16 max-w-[1240px] mx-auto px-8">
       {/* Title */}
       <Title text="About Us" />
       
@@ -46,9 +46,17 @@ const MyDisclosure = ({ title, text }) => {
   return (
     <div className="mb-4">
       <Disclosure>
-      <Disclosure.Button className="w-full flex items-center justify-between text-xl p-4 bg-red-400 rounded-md hover:shadow-xl hover:ease-in-out duration-200" onClick={() => setOpen(!open)}>
+      <Disclosure.Button
+        className="w-full flex items-center justify-between text-md md:text-xl p-4 bg-red-400 rounded-md hover:shadow-xl hover:ease-in-out duration-200"
+        onClick={() => setOpen(!open)}
+      >
         { title }
-        {!open ? <BsArrowDown className="ml-4 rotate-0 ease-in-out duration-200" size={30} /> : <BsArrowDown className="ml-4 rotate-180 ease-in-out duration-200" size={30} />}
+        {open
+        ? 
+          <BsArrowDown className="ml-4 rotate-180 ease-in-out duration-200 text-lg md:text-3xl" />
+        :
+          <BsArrowDown className="ml-4 rotate-0 ease-in-out duration-200 text-lg md:text-3xl" />
+        }
       </Disclosure.Button>
       <Disclosure.Panel className="p-2 w-full text-gray-500">
         { text }

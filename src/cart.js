@@ -14,7 +14,6 @@ const Cart = () => {
 
   // to update the DB when ser adds or subs an item
   useEffect(() => {
-    console.log("updating")
     if (items.length > 0) {
       setDoc(DOC, {
         cart: items
@@ -82,7 +81,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="w-full h-full my-32 px-8 max-w-[1240px] mx-auto select-none">
+    <div className="w-full h-full my-16 px-8 max-w-[1240px] mx-auto select-none">
       <Title text="Shopping Cart" />
 
       {items.length === 0 && <h1 className="text-2xl">Your cart is currently empty. Please add some products</h1>}
@@ -90,15 +89,15 @@ const Cart = () => {
       {numItems.map((z, index) => (
         <div key={index}>
           {loading ? <PlaceHolder /> : (items[index]) && (
-            <div className="shadow rounded-xl p-4 h-full w-full flex items-center my-4">
+            <div className="shadow rounded-xl p-4 h-full w-full flex md:flex-row flex-col items-center my-4">
               {/* Image */}
-              <img className="w-32 h-32 object-cover rounded-xl" src={items[index]?.img} alt="" />
+              <img className="w-44 h-44 object-cover rounded-xl" src={items[index]?.img} alt="" />
 
               {/* Name */}
-              <h1 className="text-lg capitalize mx-4">{items[index]?.name}</h1>
+              <h1 className="text-lg capitalize mx-4 mt-4 md:mt-0">{items[index]?.name}</h1>
 
               {/* Quantity */}
-              <div className="flex items-center ml-4 text-xl bg-gray-200 rounded-lg h-10">
+              <div className="flex items-center md:ml-4 my-4 md:my-0 text-xl bg-gray-200 rounded-lg h-10">
                 <div
                   className={(items[index]?.amount === 1 ? "text-gray-400" : "cursor-pointer") + " p-1 w-full h-full flex items-center"}
                   onClick={() => items[index]?.amount > 1 && updateCart(index, "sub")}
@@ -115,13 +114,15 @@ const Cart = () => {
                   <AiOutlinePlus className="" />
                 </div>
               </div>
-              <div className="flex items-center ml-4 text-lg cursor-pointer" onClick={() => remove(index)}>
+
+              {/* Remove */}
+              <div className="flex items-center md:ml-4 mb-4 md:mb-0 text-lg cursor-pointer" onClick={() => remove(index)}>
                 <FaTrash className="mr-1" />
                 Remove
               </div>
 
               {/* Price */}
-              <h1 className="text-2xl font-semibold text-green-500 float-right ml-auto mr-4">${ ((items[index]?.price + .99) * items[index]?.amount).toFixed(2) }</h1>
+              <h1 className="text-2xl font-semibold text-green-500 float-right md:ml-auto md:mr-4">${ ((items[index]?.price + .99) * items[index]?.amount).toFixed(2) }</h1>
             </div>
           )
           }
@@ -134,10 +135,10 @@ const Cart = () => {
 
 const PlaceHolder = () => {
   return (
-    <div className="shadow rounded-xl p-4 h-full w-full flex items-center my-4">
-      <div className="animate-pulse flex space-x-4 w-full">
-        <div className="rounded-xl bg-red-200 w-32 h-32"></div>
-        <div className="flex-1 space-y-6 py-1">
+    <div className="shadow rounded-xl px-4 h-full w-full flex items-center my-4">
+      <div className="animate-pulse md:pb-4 pb-28 pt-4 flex md:flex-row flex-col items-center md:space-x-4 w-full">
+        <div className="rounded-xl bg-red-200 w-44 h-44 md:mb-0 mb-8"></div>
+        <div className="flex-1 space-y-6 py-1 w-full">
           <div className="h-2 bg-red-200 rounded"></div>
           <div className="space-y-3">
             <div className="grid grid-cols-3 gap-4">
