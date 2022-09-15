@@ -26,7 +26,7 @@ const Products = () => {
       setPrice(old => [...old, price_])
       setDiscount(old => [...old, discount_])
     }
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 2; i++) {
       setPrices()
       fetchStuff()
     }
@@ -35,6 +35,7 @@ const Products = () => {
   const addToCart = async (product, index) => {
     await setDoc(doc(db, "cart", "mohsen"), {
       cart: arrayUnion({
+        amount: 1,
         name: product.split("images/")[1].split("/")[0],
         img: product,
         price: discount[index]
@@ -43,7 +44,7 @@ const Products = () => {
   }
 
   return (
-    <div className="w-full h-full my-32 px-8 max-w-[1240px] mx-auto">
+    <div name="products" className="w-full h-full px-8 max-w-[1240px] mx-auto">
       {/* Title */}
       <Title text="Our Products" />
 
@@ -54,8 +55,8 @@ const Products = () => {
             <Product pic={product} onClick={() => addToCart(product, index)} />
             {
             <div className="flex items-center mt-4">
-              <h1 className="text-3xl font-semibold text-green-600">${ discount[index] }</h1>
-              <h1 className="text-lg font-semibold ml-2 text-gray-600 line-through">${ price[index] }</h1>
+              <h1 className="text-3xl font-semibold text-green-600">${ (discount[index] + .99).toFixed(2) }</h1>
+              <h1 className="text-lg font-semibold ml-2 text-gray-600 line-through">${ (price[index] + .99).toFixed(2) }</h1>
             </div>
             }
             { Math.round((100 - discount[index] / price[index] * 100) / 5) * 5 > 0 &&
@@ -90,7 +91,7 @@ const Product = ({ pic, ...rest }) => {
       className="group relative mx-auto cursor-pointer"
       {...rest}
     >
-      <img className="w-32 h-32 md:w-64 md:h-64 object-cover rounded-md shadow-xl" src={pic} alt="" />
+      <img className="w-64 h-64 object-cover rounded-md shadow-xl" src={pic} alt="" />
       <AnimatePresence mode="wait">
         {open &&
           <motion.div

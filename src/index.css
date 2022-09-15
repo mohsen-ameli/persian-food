@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-red-50
+    @apply bg-red-50 overflow-x-hidden
   }
   .container {
     @apply max-w-[1240px] mx-auto
