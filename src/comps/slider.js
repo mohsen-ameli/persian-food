@@ -8,6 +8,23 @@ import food3 from "../assets/food3.jpg"
 import food4 from "../assets/food4.5.jpg"
 import food5 from "../assets/food5.jpg"
 
+const swipeConfidenceThreshold = 10000
+const swipePower = (offset, velocity) => {
+  return Math.abs(offset) * velocity;
+}
+
+const sliderVarient = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+  transition: {
+    duration: 1
+  }
+}
+
 const Slider = () => {
   const INTERVAL_TIME = 5000
   const images = [food1, food2, food3, food4, food5]
@@ -34,10 +51,22 @@ const Slider = () => {
         
         <AnimatePresence mode="wait">
           <motion.img
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={sliderVarient}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+
+              if (swipe < -swipeConfidenceThreshold) {
+                next()
+              } else if (swipe > swipeConfidenceThreshold) {
+                prev()
+              }
+            }}
             key={track}
             src={images[track]}
             alt="food"
