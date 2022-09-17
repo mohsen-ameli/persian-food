@@ -22,7 +22,7 @@ const Cart = () => {
     let subTotal = 0
 
     array.map(item => {
-      subTotal += (item.price * item.amount)
+      return subTotal += (item.price * item.amount)
     })
 
     setTotal(subTotal)
@@ -106,45 +106,47 @@ const Cart = () => {
     <div className="w-full h-full px-8 md:p-8 max-w-[1240px] mx-auto select-none">
       <Title text="Shopping Cart" />
 
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 mb-8">
         <div className="col-span-2">
         {numItems.map((z, index) => (
           <div key={index}>
             {loading ? <PlaceHolder /> : (items[index]) && (
-              <div className="p-4 mb-4 h-full w-full flex md:flex-row flex-col items-center shadow rounded-xl">
+              <div className="relative p-4 mb-4 h-full w-full flex md:flex-row flex-col items-center md:space-y-0 space-y-6 md:space-x-4 shadow rounded-xl">
                 {/* Image */}
                 <img className="w-44 h-44 object-cover rounded-xl" src={items[index]?.img} alt="" />
 
                 {/* Name */}
-                <h1 className="text-lg capitalize mx-4 mt-4 md:mt-0">{items[index]?.name}</h1>
+                <h1 className="text-lg capitalize">{items[index]?.name}</h1>
 
-                {/* Quantity */}
-                <div className="flex items-center md:ml-4 my-4 md:my-0 text-xl bg-gray-200 rounded-lg h-10">
-                  <div
-                    className={(items[index]?.amount === 1 ? "text-gray-400" : "cursor-pointer") + " p-1 w-full h-full flex items-center"}
-                    onClick={() => items[index]?.amount > 1 && updateCart(index, "sub")}
-                  >
-                    <AiOutlineMinus className="" />
+                <div className="flex items-center space-x-8">
+                  {/* Quantity */}
+                  <div className="flex items-center md:ml-4 md:my-0 text-xl bg-gray-200 rounded-lg h-10">
+                    <div
+                      className={(items[index]?.amount === 1 ? "text-gray-400" : "cursor-pointer") + " p-1 w-full h-full flex items-center"}
+                      onClick={() => items[index]?.amount > 1 && updateCart(index, "sub")}
+                    >
+                      <AiOutlineMinus />
+                    </div>
+                    <div className="border-r border-gray-400 h-full"></div>
+                    <h1 className="mx-6">{items[index]?.amount}</h1>
+                    <div className="border-r border-gray-400 h-full"></div>
+                    <div
+                      className="p-1 w-full h-full cursor-pointer flex items-center"
+                      onClick={() => updateCart(index, "add")}
+                    >
+                      <AiOutlinePlus />
+                    </div>
                   </div>
-                  <div className="border-r border-gray-400 h-full"></div>
-                  <h1 className="mx-6">{items[index]?.amount}</h1>
-                  <div className="border-r border-gray-400 h-full"></div>
-                  <div
-                    className="p-1 w-full h-full cursor-pointer flex items-center"
-                    onClick={() => updateCart(index, "add")}
-                  >
-                    <AiOutlinePlus className="" />
-                  </div>
-                </div>
 
-                {/* Remove */}
-                <div className="flex items-center md:ml-4 mb-4 md:mb-0 text-lg cursor-pointer" onClick={() => remove(index)}>
-                  <FaTrash className="mr-1" />
-                  Remove
+                  {/* Remove */}
+                  <div className="flex items-center space-x-1 md:ml-4 md:mb-0 text-lg cursor-pointer" onClick={() => remove(index)}>
+                    <FaTrash />
+                    <span>Remove</span>
+                  </div>
                 </div>
 
                 {/* Price */}
-                <h1 className="text-2xl font-semibold text-green-500 float-right md:ml-auto md:mr-4">${ (((items[index]?.price) * items[index]?.amount) + .99).toFixed(2) }</h1>
+                <h1 className="md:absolute right-8 text-2xl font-semibold text-green-500">${ (((items[index]?.price) * items[index]?.amount) + .99).toFixed(2) }</h1>
               </div>
             )
             }
@@ -153,7 +155,7 @@ const Cart = () => {
         </div>
 
         {items.length > 0 && 
-          <div className="p-4 ml-4 w-full h-fit shadow rounded-xl">
+          <div className="p-4 md:ml-4 w-full h-fit shadow rounded-xl">
             <h1 className="text-4xl font-semibold">Order Summary</h1>
             <div className="border-b-2 w-full my-4"></div>
             <h1 className="text-lg mb-2">Products: ${ total + .99 }</h1>
@@ -208,7 +210,7 @@ const Cart = () => {
 const PlaceHolder = () => {
   return (
     <div className="shadow rounded-xl px-4 h-full w-full flex items-center mb-4">
-      <div className="animate-pulse md:pb-4 pb-28 pt-4 flex md:flex-row flex-col items-center md:space-x-4 w-full">
+      <div className="animate-pulse md:pb-4 pb-16 pt-4 flex md:flex-row flex-col items-center md:space-x-4 w-full">
         <div className="rounded-xl bg-red-200 w-44 h-44 md:mb-0 mb-8"></div>
         <div className="flex-1 space-y-6 py-1 w-full">
           <div className="h-2 bg-red-200 rounded"></div>
