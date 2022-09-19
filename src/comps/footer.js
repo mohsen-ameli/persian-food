@@ -17,7 +17,7 @@ const Footer = () => {
         </Link>
 
         <div className="flex flex-col items-center">
-          <div className="grid grid-cols-3 text-center text-lg mb-8">
+          <div className="grid md:grid-cols-3 gap-y-6 text-center text-md md:text-lg mb-3 md:mb-8">
             <div className="flex flex-col">
               <h1>Address</h1>
               <p>342091 Finch Ave W, North York, ON, Canada</p>
